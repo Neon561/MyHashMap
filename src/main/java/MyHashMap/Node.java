@@ -1,4 +1,4 @@
-package util;
+package MyHashMap;
 
 class Node<K, V> {
     K key;

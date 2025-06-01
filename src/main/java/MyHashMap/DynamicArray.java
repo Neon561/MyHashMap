@@ -1,4 +1,4 @@
-package util;
+package MyHashMap;
 
 public class DynamicArray<T> {
     private static final int DEFAULT_CAPACITY = 16;

@@ -1,14 +1,19 @@
-package util;
+package MyHashMap;
 
 public class MyHashMap<K, V> {
 
     private DynamicArray<DynamicArray<Node<K, V>>> array;
-
+    private int size = 0;
+    private static final double LOAD_FACTOR = 0.75;
     public MyHashMap() {
         this.array = new DynamicArray<>();
     }
 
     public void put(K key, V value) {
+        if ((double) size / array.getLength() >= LOAD_FACTOR) {
+            resize();
+        }
+
         int slot = getSlot(key);
         DynamicArray<Node<K, V>> bucket = array.get(slot);
 
@@ -26,6 +31,7 @@ public class MyHashMap<K, V> {
         }
 
         bucket.put(bucket.getLength(), new Node<>(key, value));
+        size++;
     }
 
     public V get(K key) {
