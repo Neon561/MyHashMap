@@ -8,11 +8,15 @@ import java.util.TreeSet;
 public class Main {
 
     public static void main(String[] args) {
-        Set set = new TreeSet<>();
-        List list = new LinkedList();
-        set.add("qwe");
-        list.add("qwe");
-        System.out.println(list.equals(set));
+    MyHashMap<Integer,String>map = new MyHashMap<Integer,String>();
+
+        for (int i = 0; i < 100; i++) {
+            map.put(i, "banana " + i);
+        }
+        for (int i = 0; i < 100; i++) {
+            System.out.println(map.get(i));
+        }
+
 
     }
 }

@@ -6,7 +6,7 @@ public class MyHashMap<K, V> {
     private int size = 0;
     private static final double LOAD_FACTOR = 0.75;
     public MyHashMap() {
-        this.array = new DynamicArray<>();
+        this.array = new DynamicArray<DynamicArray<Node<K,V>>>();
     }
 
     public void put(K key, V value) {
@@ -18,7 +18,7 @@ public class MyHashMap<K, V> {
         DynamicArray<Node<K, V>> bucket = array.get(slot);
 
         if (bucket == null) {
-            bucket = new DynamicArray<>();
+            bucket = new DynamicArray<Node<K, V>>();
             array.put(slot, bucket);
         }
 
@@ -66,7 +66,7 @@ public class MyHashMap<K, V> {
     }
     private void resize() {
         DynamicArray<DynamicArray<Node<K, V>>> oldArray = this.array;
-        this.array = new DynamicArray<>(oldArray.getLength() * 2);
+        this.array = new DynamicArray<DynamicArray<Node<K,V>>>(oldArray.getLength() * 2);
 
         for (int i = 0; i < oldArray.getLength(); i++) {
             DynamicArray<Node<K, V>> bucket = oldArray.get(i);
@@ -78,7 +78,7 @@ public class MyHashMap<K, V> {
 
                         DynamicArray<Node<K, V>> newBucket = this.array.get(newSlot);
                         if (newBucket == null) {
-                            newBucket = new DynamicArray<>();
+                            newBucket = new DynamicArray<Node<K, V>>();
                             this.array.put(newSlot, newBucket);
                         }
 
