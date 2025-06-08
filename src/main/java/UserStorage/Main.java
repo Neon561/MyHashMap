@@ -14,7 +14,7 @@ public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
     private static final Validator validator = new Validator();
     private static final UserDao userDao = new UserDaoImpl();
-    private static final Scanner scanner = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     public static void main(String[] args) {
 
@@ -28,8 +28,8 @@ public class Main {
             System.out.println("6. Выход");
             System.out.print("Выберете пункт: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = SCANNER.nextInt();
+            SCANNER.nextLine();
 
             switch (choice) {
                 case 1 -> {
@@ -67,11 +67,11 @@ public class Main {
 
     private static void createUser() {
 
-        String name = validator.getValidFullName(scanner);
+        String name = validator.getValidFullName(SCANNER);
 
-        String email = validator.getValidEmail(scanner);
+        String email = validator.getValidEmail(SCANNER);
 
-        int age = validator.getValidAge(scanner);
+        int age = validator.getValidAge(SCANNER);
 
         User user = new User(name, email, age);
         userDao.save(user);
@@ -89,7 +89,7 @@ public class Main {
 
     private static void viewUserById() {
         System.out.print("Введите ID пользователя: ");
-        long id = validator.getValidId(scanner);
+        long id = validator.getValidId(SCANNER);
         User user = userDao.findById(id);
         if (user != null) {
             System.out.println(user);
@@ -102,7 +102,7 @@ public class Main {
 
     private static void updateUser() {
         System.out.print("Введите ID пользователя для обновления: ");
-        long id = validator.getValidId(scanner);
+        long id = validator.getValidId(SCANNER);
         User user = userDao.findById(id);
         if (user == null) {
             System.out.println("Пользователь не найден.");
@@ -111,18 +111,18 @@ public class Main {
 
         System.out.println("Введите новые ФИО ");
 
-        user.setName(validator.getValidFullName(scanner));
+        user.setName(validator.getValidFullName(SCANNER));
 
         System.out.println("Введите новый email");
         System.out.print("Можно указать старый Email : (" + user.getEmail() + "): ");
-        String newEmail = scanner.nextLine().trim();
+        String newEmail = SCANNER.nextLine().trim();
         if (!newEmail.isEmpty()) {
-            user.setEmail(validator.getValidEmail(scanner));
+            user.setEmail(validator.getValidEmail(SCANNER));
         }
         System.out.println("Введите новый возраст");
         System.out.print("предыдущее значение : (" + user.getAge() + "): ");
 
-        user.setAge(validator.getValidAge(scanner));
+        user.setAge(validator.getValidAge(SCANNER));
 
 
         userDao.update(user);
@@ -131,7 +131,7 @@ public class Main {
 
     private static void deleteUser() {
         System.out.print("Введите ID пользователя для удаления: ");
-        User deleting = userDao.findById(validator.getValidId(scanner));
+        User deleting = userDao.findById(validator.getValidId(SCANNER));
         if (deleting == null) {
             System.out.println("Пользователь не найден или уже удален");
             return;
